@@ -84,3 +84,13 @@ class Solver:
         if not line:
             raise OutputReadError(f"Unexpected end of output.")
         return line
+
+
+class FlopSolver:
+    """
+    A convenient wrapper for the Solver class, introducing methods specific to flop solving
+    """
+    pass
+
+
+
