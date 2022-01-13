@@ -48,33 +48,7 @@ class TexasRange:
 
 class Line:
     def __init__(self, line: str):
-        temp_line = line.split(':')
-        self.actions = []
-        self.line = temp_line[2:] if len(temp_line) > 2 else []
-        self.flop_action = None
-        self.turn_action = None
-        self.river_action = None
-
-    def parse_line(self):
-        position_decision = 'OOP'
-        street = 1
-        money_in_pot = {'OOP': 0, 'IP': 0}
-        last_bet_on_street = 0
-        for element in self.line:
-            if element == 'f':
-                self.actions.append(Action('Fold', position=position_decision))
-            if element == 'c':
-                self.actions.append(Action('Call', position=position_decision))
-                if position_decision == 'IP' or last_bet_on_street:  # If goes onto next street
-                    pass
-                    street += 1
-            else:
-                if not last_bet_on_street:  # Not facing a bet, therefor player is betting
-                    new_mip = int(element[1:])  # Total amount player will wager since start of hand
-                    last_bet_on_street = new_mip - money_in_pot[position_decision]  # Find the bet size
-                    self.actions.append(Action('Bet', position=position_decision, betsize=last_bet_on_street))
-                else:  # Facing a bet, therefor this is a raise
-                    new_mip = int(element[1:])  # Total amount player will wager since start of hand
+        self.line = parse_line(line)
 
     def __str__(self):
         return ':'.join(self.line)
@@ -135,15 +109,6 @@ def parse_line(line: Union[tuple, str]) -> tuple:
             last_action = Action('Bet', betsize=int(last_action_code[1:]) - money_in_prev_streets)
     return previous_action + (last_action,), turn_card, river_card
 
-
-
-
-
-def _get_one_street(actions: list):
-    # Decide if looking for first or second occurence of 'c' based on if oop bet
-    nth_occ_of_c = 2 if actions[0] == 'c' else 1
-    last_call_index = utils.nth_occurence(actions, 'c', nth_occ_of_c)
-    return actions[0:last_call_index]
 
 
 def main():
