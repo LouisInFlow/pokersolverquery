@@ -110,7 +110,6 @@ def parse_line(line: Union[tuple, str]) -> tuple:
     return previous_action + (last_action,), turn_card, river_card
 
 
-
 def main():
     range_ = TexasRange(' '.join([str(1)]*5 + [str(0)]*(len(UPI_HAND_ORDER)-5)))
     print('2d2c' in range_)

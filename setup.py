@@ -9,7 +9,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="pokersolverquery.py",
-    version="1.0.1",
+    version="1.0.2",
     description="A Poker BaseSolver Query package for interacting with UPI engines such as PioSOLVER and jesolver",
     long_description=README,
     long_description_content_type="text/markdown",
