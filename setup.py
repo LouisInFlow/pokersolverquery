@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 setup(
     name="pokersolverquery.py",
     version="1.0.1",
-    description="A Poker Solver Query package for interacting with UPI engines such as PioSOLVER and jesolver",
+    description="A Poker BaseSolver Query package for interacting with UPI engines such as PioSOLVER and jesolver",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/mitchr1598/pokersolverquery",
@@ -21,4 +21,8 @@ setup(
     ],
     packages=["pokersolverquery"],
     python_requires=">=3.9.0",
+    install_requires=[
+        'texasholdem1598',
+        'numpy',
+    ],
 )

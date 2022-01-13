@@ -1,7 +1,7 @@
 # pokersolverquery&#46;py
 
 
-A Poker Solver Query package for interacting with UPI engines such as PioSOLVER and jesolver
+A Poker BaseSolver Query package for interacting with UPI engines such as PioSOLVER and jesolver
 
 ## Features
 * Easy to use python interface
@@ -26,13 +26,14 @@ pip install playingcards.py
 -->
 ## How To Use
 Import the solver object via:
+
 ```python
-from pokersolverquery.solver import Solver
+from pokersolverquery.solver import BaseSolver
 ```
 Initiate the solver class and send any UPI command!
 
 ```python
-solver = Solver(solver_path=r'C:\PioSOLVER\PioSOLVER-edge.exe')
+solver = BaseSolver(solver_path=r'C:\PioSOLVER\PioSOLVER-edge.exe')
 
 output = solver.command("load_tree QsJh2h")
 range = solver.command("show_range OOP r")
