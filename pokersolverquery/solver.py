@@ -131,7 +131,8 @@ class LoadedTree:
 
     def next_actions(self, line):
         res = self.solver.command(f'show_children {line}')
-        return res[1::7]
+        line_codes = ''.join(res[1::7])
+        return [el[-1] for el in building_blocks.Line(line_codes).line]
 
 
 class FlopSolver:
