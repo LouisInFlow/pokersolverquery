@@ -3,7 +3,7 @@ import os
 import pathlib
 from typing import Union
 from texasholdem import Flop
-import building_blocks
+import pokersolverquery.building_blocks
 
 
 class SolverException(Exception):
@@ -119,11 +119,11 @@ class LoadedTree:
 
     @property
     def ip_range(self):
-        return building_blocks.TexasRange(self.solver.command('show_range IP')[0])
+        return pokersolverquery.building_blocks.TexasRange(self.solver.command('show_range IP')[0])
 
     @property
     def opp_range(self):
-        return building_blocks.TexasRange(self.solver.command('show_range OOP')[0])
+        return pokersolverquery.building_blocks.TexasRange(self.solver.command('show_range OOP')[0])
 
     @property
     def all_lines(self):
@@ -132,7 +132,7 @@ class LoadedTree:
     def next_actions(self, line):
         res = self.solver.command(f'show_children {line}')
         line_codes = ''.join(res[1::7])
-        return [el[-1] for el in building_blocks.Line(line_codes).line]
+        return [el[-1] for el in pokersolverquery.building_blocks.Line(line_codes).line]
 
 
 class FlopSolver:

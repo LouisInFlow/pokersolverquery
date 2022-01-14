@@ -1,7 +1,6 @@
 import texasholdem as th
 from typing import Union
 import numpy as np
-import utils
 from dataclasses import dataclass
 from functools import cache
 
