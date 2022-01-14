@@ -14,13 +14,7 @@ class Action:
     position: str = None
 
     def __str__(self):
-        if self.action == 'f':
-            act_str = 'Fold'
-        elif self.action == 'c':
-            act_str = 'Call'
-        else:
-            act_str = f'Bet {self.betsize}'
-        return act_str if self.position is None else f'{self.position} {act_str}'
+        return ' '.join([str(el) for el in [self.position, self.action, self.betsize] if el not in [0, None]])
 
 
 class TexasRange:
@@ -47,7 +41,7 @@ class TexasRange:
 
 class Line:
     def __init__(self, line: str):
-        self.line = parse_line(line)
+        self.line, self.turn, self.river = parse_line(line)
 
     def __str__(self):
         return ':'.join(self.line)
@@ -59,16 +53,16 @@ def parse_line(line: Union[tuple, str]) -> tuple:
         line = tuple(line.split(':'))
 
     # Remove the initializer bits
-    if len(line) < 1:  # Empty lists get passed due to recursion
-        return tuple()
+    if len(line) < 1:  # Empty tuples get passed due to recursion
+        return tuple(), None, None
     if line[0] == 'r':
         line = line[1:]
     if len(line) < 1:
-        return tuple()
+        return tuple(), None, None
     if line[0] == '0':
         line = line[1:]
     if len(line) < 1:
-        return tuple()
+        return tuple(), None, None
 
     turn_card = None
     river_card = None
@@ -80,12 +74,12 @@ def parse_line(line: Union[tuple, str]) -> tuple:
                 river_card = th.River.from_string(el)
 
     last_action_code: str = line[-1]  # The unparsed last action
-    previous_action: tuple = parse_line(line[:-1])  # Perform parse on all previous actions
+    previous_action, _, _ = parse_line(line[:-1])  # Perform parse on all previous actions
 
     # Get the parsed second to last action
     facing_action: Action = previous_action[-1] if len(previous_action) > 0 else Action('')
     # Get the unparsed second to last action
-    facing_action_code: str = line[-2] if len(line) > 1 else None
+    facing_action_code: str = line[-2] if len(line) > 1 else ''
 
     if last_action_code == 'f':
         last_action = Action('Fold')

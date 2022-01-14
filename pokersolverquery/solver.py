@@ -131,8 +131,8 @@ class LoadedTree:
 
     def next_actions(self, line):
         res = self.solver.command(f'show_children {line}')
-        line_codes = ''.join(res[1::7])
-        return [el[-1] for el in pokersolverquery.building_blocks.Line(line_codes).line]
+        line_codes = res[1::7]
+        return [pokersolverquery.building_blocks.Line(code).line[-1] for code in line_codes]
 
 
 class FlopSolver:
@@ -152,7 +152,7 @@ def main():
     tree = LoadedTree(r'D:\Pio Saves 2\Stacked\FLOP FULL EP vs IP call\The rest (range check)\Ts9s2d.cfr', solve)
     print(tree.flop)
     print(tree.ip_range)
-    print(tree.next_actions('r:0:c'))
+    print([str(el) for el in tree.next_actions('r:0:c')])
     # for line in tree.all_lines:
     #     parsed = building_blocks.parse_line(line)[0]
     #     print(line, tuple(act.action + ' ' + str(act.betsize) for act in parsed))
