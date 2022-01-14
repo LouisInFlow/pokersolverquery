@@ -67,12 +67,16 @@ def parse_line(line: Union[tuple, str]) -> tuple:
 
     turn_card = None
     river_card = None
-    for el in line:
+    new_line = tuple()
+    for i, el in enumerate(line):
         if 'b' not in el and el not in ['c', 'f']:
             if turn_card is None:
                 turn_card = th.Turn.from_string(el)
             else:
                 river_card = th.River.from_string(el)
+        else:
+            new_line = new_line + (el,)
+    line = new_line
 
     last_action_code: str = line[-1]  # The unparsed last action
     previous_action, _, _ = parse_line(line[:-1])  # Perform parse on all previous actions
@@ -107,6 +111,9 @@ def parse_line(line: Union[tuple, str]) -> tuple:
 def main():
     range_ = TexasRange(' '.join([str(1)]*5 + [str(0)]*(len(UPI_HAND_ORDER)-5)))
     print('2d2c' in range_)
+    l = Line("r:0:c:b100:c:Ah")
+    print(l.line_text)
+    print(l.line, l.turn, l.river)
 
 
 if __name__ == '__main__':
