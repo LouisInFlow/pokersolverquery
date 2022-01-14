@@ -132,7 +132,7 @@ class LoadedTree:
     def next_actions(self, line):
         res = self.solver.command(f'show_children {line}')
         line_codes = res[1::7]
-        return [pokersolverquery.building_blocks.Line(code).line[-1] for code in line_codes]
+        return [pokersolverquery.building_blocks.Line(code) for code in line_codes]
 
 
 class FlopSolver:
