@@ -41,10 +41,11 @@ class TexasRange:
 
 class Line:
     def __init__(self, line: str):
-        self.line, self.turn, self.river = parse_line(line)
+        self.line_text = line
+        self.line, self.turn, self.river = parse_line(self.line_text)
 
     def __str__(self):
-        return ':'.join(self.line)
+        return ' - '.join(self.line) + f'\nTurn: {self.turn}\nRiver: {self.river}'
 
 
 @cache
